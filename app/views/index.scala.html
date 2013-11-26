@@ -1,4 +1,4 @@
-@(implicit request: RequestHeader)
+@(uuid: String)(implicit request: RequestHeader)
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,13 +7,16 @@
         <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("bootstrap.min.css"))'>
         <link rel='stylesheet' href='@routes.Assets.at("stylesheets/index.css")'>
         <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
-        <script type='text/javascript' src='@routes.Assets.at("javascripts/index.min.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.at("javascripts/index.js")'></script>
     </head>
-    <body data-ws-url="@routes.Application.ws.webSocketURL(false)">
+    <body data-ws-url="@routes.Application.ws(uuid).webSocketURL(false)" data-es-url="@routes.Application.esPush(uuid)">
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container-fluid">
                     <a id="titleLink" class="brand" href="/">Play Actor Realtime</a>
+                    <label class="checkbox pull-right" style="padding-top: 10px;">
+                        <input id="ws-enabled" type="checkbox" checked>Enable WS
+                    </label>
                 </div>
             </div>
         </div>
@@ -21,7 +24,7 @@
             <div class="well">
                 <form id="message-form">
                     <input id="message-text">
-                    <input type="submit" name="Send">
+                    <input type="submit" value="Send">
                 </form>
                 <ul id="messages"></ul>
             </div>

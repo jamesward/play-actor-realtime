@@ -3,7 +3,9 @@
 # ~~~~
 
 GET        /                     controllers.Application.index()
-GET        /ws                   controllers.Application.ws()
+GET        /ws                   controllers.Application.ws(uuid: String)
+GET        /es                   controllers.Application.esPush(uuid: String)
+POST       /es                   controllers.Application.esPost(uuid: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file         controllers.Assets.at(path="/public", file)
